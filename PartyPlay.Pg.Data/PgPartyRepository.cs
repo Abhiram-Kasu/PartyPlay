@@ -4,7 +4,7 @@ namespace PartyPlay.Pg.Data;
 
 internal class PgPartyRepository(ApplicationDbContext _context) : IPartyRepository
 {
-    public async Task<List<Party>> GetPartiesAsync() => await _context.Parties.ToListAsync();
+    public async Task<List<Party>> GetPartiesUsersAsync() => await _context.Parties.ToListAsync();
 
     public Task<Party?> GetPartyAsync(int id)
     {

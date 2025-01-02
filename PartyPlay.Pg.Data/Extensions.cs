@@ -10,7 +10,8 @@ public static class Extensions
     {
         builder.AddNpgsqlDbContext<ApplicationDbContext>("partyPlay");
         builder.Services.AddScoped<IPartyRepository, PgPartyRepository>();
-        
+        builder.Services.AddScoped<IPartyUserRepository, PgPartyUserRepository>();
+
     }
     
 }
