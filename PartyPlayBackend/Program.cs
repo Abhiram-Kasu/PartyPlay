@@ -1,5 +1,6 @@
 
 global using PartyPlay.Pg.Data;
+using PartyPlayBackend.Endpoints;
 using Scalar.AspNetCore;
 
 
@@ -23,12 +24,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/", async (IPartyRepository repository) =>
-{
-    var parties = await repository.GetPartiesAsync();
-    return Results.Ok(parties);
-});
-
+app.MapUserEndpoints();
 
 
 app.Run();

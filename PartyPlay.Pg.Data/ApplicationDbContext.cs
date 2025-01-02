@@ -13,6 +13,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .HasMany(p => p.Users)
             .WithOne(u => u.Party)
             .HasForeignKey(u => u.PartyId);
-        
+        modelBuilder.Entity<PartyUser>().Property(x => x.Id).UseIdentityColumn();
+
     }
 }

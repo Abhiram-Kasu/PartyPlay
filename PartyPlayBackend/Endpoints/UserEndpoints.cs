@@ -3,19 +3,30 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PartyPlayBackend.Endpoints;
 
-public static class UserEndpoints
+public static class UserEndpointsExtensions
 {
     public static void MapUserEndpoints(this WebApplication app)
     {
-        app.MapPost("/users/create", CreateUser);
+        app.MapPost("/users/create", UserEndpoints.CreateUser);
         
     }
 
+    
+}
+/*
+ * Design decision to separate the functions from the static class to give the `T` in ILogger<T> a more specific type
+ * This was also intentionally made an interface to exploit default interface methods
+ * and to enforce a lack of state. There should only be functions or definitions in this interface 
+ */
+// ReSharper disable once InconsistentNaming
+internal interface UserEndpoints
+{
     sealed record CreateUserRequest(string Name);
 
     sealed record CreateUserResponse(int Id);
 
-    static async Task<IResult> CreateUser(ILogger _logger, ApplicationDbContext context,
+    
+    static async Task<IResult> CreateUser([FromServices]ILogger<UserEndpoints> _logger, ApplicationDbContext context,
         [FromBody] CreateUserRequest request)
     {
         _logger.LogInformation("Creating user with name: {name}", request.Name);
@@ -42,7 +53,7 @@ public static class UserEndpoints
     }
 
     sealed record AddUserToPartyRequest(int PartyId, int UserId);
-    static async Task<IResult> AddUserToParty(ILogger _logger, ApplicationDbContext context, [FromBody]AddUserToPartyRequest request )
+    static async Task<IResult> AddUserToParty(ILogger<UserEndpoints> _logger, ApplicationDbContext context, [FromBody]AddUserToPartyRequest request )
     {
         _logger.LogInformation("Trying to add user {userId} to party {partyId}", request.UserId, request.PartyId);
         var party = await context.Parties.Include(p => p.Users).FirstOrDefaultAsync(p => p.Id == request.PartyId);

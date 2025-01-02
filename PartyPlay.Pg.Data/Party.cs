@@ -6,6 +6,7 @@ namespace PartyPlay.Pg.Data;
 public class Party
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
     [Required, MaxLength(100)]
     public required string Name { get; set; }

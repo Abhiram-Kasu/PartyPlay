@@ -60,7 +60,7 @@ namespace PartyPlay.Pg.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<int>("PartyId")
+                    b.Property<int?>("PartyId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -85,9 +85,7 @@ namespace PartyPlay.Pg.Data.Migrations
                 {
                     b.HasOne("PartyPlay.Pg.Data.Party", "Party")
                         .WithMany("Users")
-                        .HasForeignKey("PartyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PartyId");
 
                     b.Navigation("Party");
                 });
