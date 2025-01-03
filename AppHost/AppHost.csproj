@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PartyPlay.Realtime\PartyPlay.Realtime.csproj" />
       <ProjectReference Include="..\PartyPlay.Service.DatabaseMigration\PartyPlay.Service.DatabaseMigration.csproj" />
       <ProjectReference Include="..\PartyPlayBackend\PartyPlayBackend.csproj" />
       <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />

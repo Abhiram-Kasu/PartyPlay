@@ -8,7 +8,8 @@ public static class UserEndpointsExtensions
     public static void MapUserEndpoints(this WebApplication app)
     {
         app.MapPost("/users/create", UserEndpoints.CreateUser);
-        
+        app.MapGet("/users/{id:int}", UserEndpoints.GetUser);
+
     }
 
     
@@ -79,5 +80,14 @@ internal interface UserEndpoints
             return Results.InternalServerError();
         }
         return Results.Ok();
+    }
+
+    static async Task<IResult> GetUser([FromServices] ILogger<UserEndpoints> _logger, ApplicationDbContext context, [FromQuery]int id)
+    {
+        _logger.LogInformation("Getting user with id: {id}", id);
+        var user = await context.PartyUsers.FindAsync(id);
+        if (user is not null) return Results.Ok(user);
+        _logger.LogWarning("User {id} not found", id);
+        return Results.NotFound();
     }
 }

@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyPlay.Pg.Data", "PartyP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyPlay.Service.DatabaseMigration", "PartyPlay.Service.DatabaseMigration\PartyPlay.Service.DatabaseMigration.csproj", "{98A31EE6-49D4-4C79-BFF6-59523D27B910}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KafkaEventTypes", "KafkaEventTypes\KafkaEventTypes.csproj", "{328D57BE-0D73-4F7F-8BE6-995822774585}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyPlay.Realtime", "PartyPlay.Realtime\PartyPlay.Realtime.csproj", "{A695185D-7C24-4F42-A241-9F53895A2D9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{98A31EE6-49D4-4C79-BFF6-59523D27B910}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98A31EE6-49D4-4C79-BFF6-59523D27B910}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98A31EE6-49D4-4C79-BFF6-59523D27B910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{328D57BE-0D73-4F7F-8BE6-995822774585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{328D57BE-0D73-4F7F-8BE6-995822774585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{328D57BE-0D73-4F7F-8BE6-995822774585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{328D57BE-0D73-4F7F-8BE6-995822774585}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A695185D-7C24-4F42-A241-9F53895A2D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A695185D-7C24-4F42-A241-9F53895A2D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A695185D-7C24-4F42-A241-9F53895A2D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A695185D-7C24-4F42-A241-9F53895A2D9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
