@@ -3,7 +3,7 @@ using SoapExtensions;
 
 namespace PartyPlay.Pg.Data;
 
-internal class PgPartyRepository(ApplicationDbContext _context) : IPartyRepository
+internal class PgPartyRepository(ApplicationDbContext _context, IPartyUserRepository userRepository) : IPartyRepository
 {
     public async Task<List<Party>> GetPartiesUsersAsync() => await _context.Parties.ToListAsync();
 
@@ -19,9 +19,34 @@ internal class PgPartyRepository(ApplicationDbContext _context) : IPartyReposito
         return party;
     }
 
-    public Task<Party?> CreatePartyAsync(Party party)
+    
+    public async Task<Result<Party, Error>> CreatePartyAsync(string name, int ownderId)
     {
-        throw new NotImplementedException();
+        var res = await userRepository.GetPartyUserAsync(ownderId);
+        if(res is { IsSuccess: false, Error: IPartyUserRepository.UserDoesNotExistError error })
+        {
+            return error;
+        }
+        var party = new Party
+        {
+            Name = name,
+            OwnerId = ownderId
+        };
+        _context.Parties.Add(party);
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            return new StandardError("Something went wrong with saving changes", ex);
+        }
+
+        return party;
+
+
+
+
     }
 
 
@@ -53,8 +78,30 @@ internal class PgPartyRepository(ApplicationDbContext _context) : IPartyReposito
         return true;
     }
 
-    public Task<bool> RemoveFromPartyAsync(int partyId, int userId)
+    public async Task<Result<bool, Error>> RemoveFromPartyAsync(int partyId, int userId)
     {
-        throw new NotImplementedException();
+        var res = await userRepository.GetPartyUserAsync(userId);
+        if(res is { IsSuccess: false, Error: IPartyUserRepository.UserDoesNotExistError error })
+        {
+            return error;
+        }
+        var party = await _context.Parties.FindAsync(partyId);
+        if (party is null)
+        {
+            return new IPartyRepository.PartyDoesNotExistError();
+        }
+        party.Users.Remove(res.Value!);
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            return new StandardError("Something went wrong with saving changes", ex);
+        }
+
+        return true;
+
+
     }
 }

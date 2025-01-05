@@ -9,8 +9,8 @@ public static class Extensions
     public static void AddPgFeatures(this IHostApplicationBuilder builder)
     {
         builder.AddNpgsqlDbContext<ApplicationDbContext>("partyPlay");
-        builder.Services.AddScoped<IPartyRepository, PgPartyRepository>();
         builder.Services.AddScoped<IPartyUserRepository, PgPartyUserRepository>();
+        builder.Services.AddScoped<IPartyRepository, PgPartyRepository>();
 
     }
     
